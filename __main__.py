@@ -9,6 +9,15 @@ def generate_password(length: int = 8, alphabet: str = string.ascii_letters + st
 
 
 if __name__ == "__main__":
+    ALPHABET: str = string.ascii_letters
+
     pass_length = cli.get_number()
-    print(generate_password(pass_length))
+
+    if cli.yes_or_not("Password will be have a digits?"):
+        ALPHABET += string.digits
+
+    if cli.yes_or_not("Password will be have a other symbols?"):
+        ALPHABET += "!?_-"
+
+    print(generate_password(pass_length, ALPHABET))
     input()
