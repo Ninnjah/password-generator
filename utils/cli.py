@@ -1,9 +1,14 @@
 def get_number() -> int:
     while True:
         try:
-            return int(input("Enter password length: "))
+            number: int = int(input("Enter password length: "))
+            if number < 0:
+                raise ValueError
+
+            return number
+
         except ValueError:
-            print("You should enter a number")
+            print("You should enter a positive number")
 
 
 def yes_or_not(msg: str) -> bool:
