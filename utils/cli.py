@@ -2,7 +2,7 @@ def get_number() -> int:
     while True:
         try:
             number: int = int(input("Enter password length: "))
-            if number < 0:
+            if number <= 0:
                 raise ValueError
 
             return number
