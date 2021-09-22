@@ -13,13 +13,13 @@ if __name__ == "__main__":
 
     pass_length = cli.get_number()
 
-    if cli.yes_or_not("Password will be have a capital letters?"):
+    if cli.yes_or_not("Will the password contain capital letters?"):
         ALPHABET += string.ascii_uppercase
 
-    if cli.yes_or_not("Password will be have a digits?"):
+    if cli.yes_or_not("Will the password contain digits?"):
         ALPHABET += string.digits
 
-    if cli.yes_or_not("Password will be have a other symbols?"):
+    if cli.yes_or_not("Will the password contain other symbols?"):
         ALPHABET += "!?_-"
 
     print(generate_password(pass_length, ALPHABET))
