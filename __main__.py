@@ -9,18 +9,19 @@ def generate_password(length: int = 8, alphabet: str = string.ascii_letters + st
 
 
 if __name__ == "__main__":
-    ALPHABET: str = string.ascii_lowercase
+    RAW_ALPHABET: str = string.ascii_lowercase
 
     pass_length = cli.get_number()
 
     if cli.yes_or_not("Will the password contain capital letters?"):
-        ALPHABET += string.ascii_uppercase
+        RAW_ALPHABET += string.ascii_uppercase
 
     if cli.yes_or_not("Will the password contain digits?"):
-        ALPHABET += string.digits
+        RAW_ALPHABET += string.digits
 
-    if cli.yes_or_not("Will the password contain other symbols?"):
-        ALPHABET += "!?_-"
+    if cli.yes_or_not("Will the password contain special symbols?"):
+        symbols = input("Enter special symbols: ")
+        RAW_ALPHABET += symbols
 
-    print(generate_password(pass_length, ALPHABET))
+    print(generate_password(pass_length, RAW_ALPHABET))
     input()
