@@ -23,5 +23,7 @@ if __name__ == "__main__":
         symbols = input("Enter special symbols: ")
         RAW_ALPHABET += symbols
 
-    print(generate_password(pass_length, RAW_ALPHABET))
+    ALPHABET: str = "".join([x for x in set(RAW_ALPHABET)])
+
+    print(generate_password(pass_length, ALPHABET))
     input()
