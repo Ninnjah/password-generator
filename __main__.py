@@ -43,4 +43,9 @@ def config_pass() -> None:
 
 
 if __name__ == "__main__":
+    if cli.choose("Choose password type: ",
+                  ["Default password", "Password from words"]) == "Default password":
+        config_pass()
+    else:
+        config_words_pass()
     input()
