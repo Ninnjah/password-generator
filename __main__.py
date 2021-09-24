@@ -22,22 +22,25 @@ def config_words_pass() -> None:
     print(generate_password(pass_length, word_list, separator="-"))
 
 
-if __name__ == "__main__":
-    RAW_ALPHABET: str = string.ascii_lowercase
+def config_pass() -> None:
+    raw_alphabet: str = string.ascii_lowercase
 
     pass_length = cli.get_number("Enter password length: ")
 
     if cli.yes_or_not("Will the password contain capital letters?"):
-        RAW_ALPHABET += string.ascii_uppercase
+        raw_alphabet += string.ascii_uppercase
 
     if cli.yes_or_not("Will the password contain digits?"):
-        RAW_ALPHABET += string.digits
+        raw_alphabet += string.digits
 
     if cli.yes_or_not("Will the password contain special symbols?"):
         symbols = input("Enter special symbols: ")
-        RAW_ALPHABET += symbols
+        raw_alphabet += symbols
 
-    ALPHABET: tuple = tuple(set(RAW_ALPHABET))
+    alphabet: tuple = tuple(set(raw_alphabet))
 
-    print(generate_password(pass_length, ALPHABET))
+    print(generate_password(pass_length, alphabet))
+
+
+if __name__ == "__main__":
     input()
