@@ -4,8 +4,8 @@ import secrets
 from utils import cli
 
 
-def generate_password(length: int = 8, alphabet: str = string.ascii_letters + string.digits + "!?_-") -> str:
-    return ''.join(secrets.choice(alphabet) for i in range(length))
+def generate_password(length: int, alphabet: tuple) -> str:
+    return "".join(secrets.choice(alphabet) for _ in range(length))
 
 
 if __name__ == "__main__":
@@ -23,7 +23,7 @@ if __name__ == "__main__":
         symbols = input("Enter special symbols: ")
         RAW_ALPHABET += symbols
 
-    ALPHABET: str = "".join([x for x in set(RAW_ALPHABET)])
+    ALPHABET: tuple = tuple(set(RAW_ALPHABET))
 
     print(generate_password(pass_length, ALPHABET))
     input()
