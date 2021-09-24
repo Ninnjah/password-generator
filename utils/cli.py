@@ -1,3 +1,6 @@
+from typing import Any, List
+
+
 def get_number(msg: str) -> int:
     while True:
         try:
@@ -9,6 +12,18 @@ def get_number(msg: str) -> int:
 
         except ValueError:
             print("You should enter a positive number")
+
+
+def choose(msg: str, list_: List[Any]) -> Any:
+    for index, item in enumerate(list_, 1):
+        print(f" [{index}] {item}")
+
+    while True:
+        index: int = get_number(msg)
+        if index <= len(list_):
+            return list_[index - 1]
+        else:
+            print("The item with this number doesn't exist")
 
 
 def yes_or_not(msg: str) -> bool:
