@@ -19,6 +19,8 @@ def config_words_pass() -> None:
         word_list: tuple = tuple(_.strip() for _ in f.readlines())
 
     pass_length = cli.get_number("Enter words count in password: ")
+
+    print("Your password is")
     print(generate_password(pass_length, word_list, separator="-"))
 
 
@@ -39,6 +41,7 @@ def config_pass() -> None:
 
     alphabet: tuple = tuple(set(raw_alphabet))
 
+    print("Your password is")
     print(generate_password(pass_length, alphabet))
 
 
