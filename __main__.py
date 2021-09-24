@@ -4,8 +4,8 @@ import secrets
 from utils import cli
 
 
-def generate_password(length: int, alphabet: tuple) -> str:
-    return "".join(secrets.choice(alphabet) for _ in range(length))
+def generate_password(length: int, alphabet: tuple, separator: str = "") -> str:
+    return separator.join(secrets.choice(alphabet) for _ in range(length))
 
 
 if __name__ == "__main__":
