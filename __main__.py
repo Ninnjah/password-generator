@@ -11,7 +11,7 @@ def generate_password(length: int, alphabet: tuple) -> str:
 if __name__ == "__main__":
     RAW_ALPHABET: str = string.ascii_lowercase
 
-    pass_length = cli.get_number()
+    pass_length = cli.get_number("Enter password length: ")
 
     if cli.yes_or_not("Will the password contain capital letters?"):
         RAW_ALPHABET += string.ascii_uppercase

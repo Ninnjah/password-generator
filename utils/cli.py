@@ -1,7 +1,7 @@
-def get_number() -> int:
+def get_number(msg: str) -> int:
     while True:
         try:
-            number: int = int(input("Enter password length: "))
+            number: int = int(input(msg))
             if number <= 0:
                 raise ValueError
 
