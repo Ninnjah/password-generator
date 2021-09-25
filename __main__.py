@@ -68,4 +68,3 @@ if __name__ == "__main__":
         config_pass()
     else:
         config_words_pass()
-    input()
