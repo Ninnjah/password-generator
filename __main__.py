@@ -14,11 +14,11 @@ def config_words_pass() -> None:
     file_path: str = "./dictionaries"
     file_list: List[str] = [x for x in os.listdir(file_path) if os.path.isfile(os.path.join(file_path, x))]
 
-    file_name = os.path.join(file_path, cli.choose("Choose dict file: ", file_list))
+    file_name: str = os.path.join(file_path, cli.choose("Choose dict file: ", file_list))
     with open(file_name, "r", encoding="utf-8") as f:
         word_list: tuple = tuple(_.strip() for _ in f.readlines())
 
-    pass_length = cli.get_number("Enter words count in password: ")
+    pass_length: int = cli.get_number("Enter words count in password: ")
     passwords_count: int = cli.get_number("Enter count of passwords: ")
 
     print("Your password is")
@@ -29,7 +29,7 @@ def config_words_pass() -> None:
 def config_pass() -> None:
     raw_alphabet: str = string.ascii_lowercase
 
-    pass_length = cli.get_number("Enter password length: ")
+    pass_length: int = cli.get_number("Enter password length: ")
 
     if cli.yes_or_not("Will the password contain capital letters?"):
         raw_alphabet += string.ascii_uppercase
@@ -38,7 +38,7 @@ def config_pass() -> None:
         raw_alphabet += string.digits
 
     if cli.yes_or_not("Will the password contain special symbols?"):
-        symbols = input("Enter special symbols: ")
+        symbols: str = input("Enter special symbols: ")
         raw_alphabet += symbols
 
     alphabet: tuple = tuple(set(raw_alphabet))
