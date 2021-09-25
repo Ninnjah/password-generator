@@ -7,8 +7,12 @@ from utils import cli
 from utils import ascii_text
 
 
-def generate_password(length: int, alphabet: tuple, separator: str = "") -> str:
-    return separator.join(secrets.choice(alphabet) for _ in range(length))
+def generate_password(length: int, alphabet: tuple, separator: str = "", mode: str = "standard") -> str:
+    if mode == "standard":
+        return separator.join(secrets.choice(alphabet) for _ in range(length))
+    if mode == "no_duplicate":
+        alphabet: list = list(alphabet)
+        return separator.join(alphabet.pop(secrets.randbelow(len(alphabet))) for _ in range(length))
 
 
 def save_to_file(filename: str, data: Union[List[str], Generator]) -> None:
@@ -19,17 +23,23 @@ def save_to_file(filename: str, data: Union[List[str], Generator]) -> None:
 def config_words_pass() -> None:
     file_path: str = "./dictionaries"
     file_list: List[str] = [x for x in os.listdir(file_path) if os.path.isfile(os.path.join(file_path, x))]
+    mode: str = "standard"
 
     file_name: str = os.path.join(file_path, cli.choose("Choose dict file: ", file_list))
     with open(file_name, "r", encoding="utf-8") as f:
         word_list: tuple = tuple(_.strip() for _ in f.readlines())
 
-    separation_symbol: str = input("Enter separation symbol: ")
     pass_length: int = cli.get_number("Enter words count in password: ")
+
+    sep_symbol: str = input("Enter separation symbol: ")
+
+    if not cli.yes_or_not("Will the password contain duplicate symbols?"):
+        mode = "no_duplicate"
+
     passwords_count: int = cli.get_number("Enter count of passwords: ")
 
     passwords: List[str] = [
-        generate_password(pass_length, word_list, separator=separation_symbol) for _ in range(passwords_count)
+        generate_password(pass_length, word_list, separator=sep_symbol, mode=mode) for _ in range(passwords_count)
     ]
     print("Your password is")
     for password in passwords:
@@ -42,6 +52,7 @@ def config_words_pass() -> None:
 
 def config_pass() -> None:
     raw_alphabet: str = string.ascii_lowercase
+    mode: str = "standard"
 
     pass_length: int = cli.get_number("Enter password length: ")
 
@@ -55,10 +66,15 @@ def config_pass() -> None:
         symbols: str = input("Enter special symbols: ")
         raw_alphabet += symbols
 
+    if cli.yes_or_not("Will the password contain duplicate symbols?"):
+        mode = "no_duplicate"
+
     alphabet: tuple = tuple(set(raw_alphabet))
     passwords_count: int = cli.get_number("Enter count of passwords: ")
 
-    passwords: List[str] = [generate_password(pass_length, alphabet, separator="") for _ in range(passwords_count)]
+    passwords: List[str] = [
+        generate_password(pass_length, alphabet, separator="", mode=mode) for _ in range(passwords_count)
+    ]
     print("Your password is")
     for password in passwords:
         print(password)
