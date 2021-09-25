@@ -15,9 +15,8 @@ def get_number(msg: str, min_: int = 0, max_: int = sys.maxsize) -> int:
         try:
             number: int = int(input(msg))
             if min_ <= number <= max_:
-                raise ValueError
-
-            return number
+                return number
+            raise ValueError
 
         except ValueError:
             print(f"You should enter a number greater than {min_} and less than {max_}")
@@ -35,7 +34,7 @@ def choose(msg: str, list_: List[Any]) -> Any:
         print(f" [{index}] {item}")
 
     while True:
-        index: int = get_number(msg)
+        index: int = get_number(msg, min_=1, max_=len(list_))
         if index <= len(list_):
             return list_[index - 1]
         else:
