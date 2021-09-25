@@ -53,7 +53,7 @@ def config_words_pass() -> None:
         word_list: tuple = tuple(_.strip() for _ in f.readlines())
 
     # Config password generator
-    pass_length: int = cli.get_number("Enter words count in password: ")
+    pass_length: int = cli.get_number("Enter words count in password: ", max_=16)
 
     sep_symbol: str = input("Enter separation symbol: ")
 
@@ -83,7 +83,7 @@ def config_pass() -> None:
     mode: str = "standard"
 
     # Config password generation
-    pass_length: int = cli.get_number("Enter password length: ")
+    pass_length: int = cli.get_number("Enter password length: ", max_=30)
 
     if cli.yes_or_not("Will the password contain capital letters?"):
         raw_alphabet += string.ascii_uppercase
