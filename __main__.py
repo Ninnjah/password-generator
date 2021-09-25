@@ -21,9 +21,10 @@ def config_words_pass() -> None:
     pass_length: int = cli.get_number("Enter words count in password: ")
     passwords_count: int = cli.get_number("Enter count of passwords: ")
 
+    passwords: List[str] = [generate_password(pass_length, word_list, separator="-") for _ in range(passwords_count)]
     print("Your password is")
-    for _ in range(passwords_count):
-        print(generate_password(pass_length, word_list, separator="-"))
+    for password in passwords:
+        print(password)
 
 
 def config_pass() -> None:
@@ -44,9 +45,10 @@ def config_pass() -> None:
     alphabet: tuple = tuple(set(raw_alphabet))
     passwords_count: int = cli.get_number("Enter count of passwords: ")
 
+    passwords: List[str] = [generate_password(pass_length, alphabet, separator="") for _ in range(passwords_count)]
     print("Your password is")
-    for _ in range(passwords_count):
-        print(generate_password(pass_length, alphabet))
+    for password in passwords:
+        print(password)
 
 
 if __name__ == "__main__":
