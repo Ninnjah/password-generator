@@ -1,17 +1,18 @@
+import sys
 from typing import Any, List
 
 
-def get_number(msg: str) -> int:
+def get_number(msg: str, min_: int = 0, max_: int = sys.maxsize) -> int:
     while True:
         try:
             number: int = int(input(msg))
-            if number <= 0:
+            if min_ <= number <= max_:
                 raise ValueError
 
             return number
 
         except ValueError:
-            print("You should enter a positive number")
+            print(f"You should enter a number greater than {min_} and less than {max_}")
 
 
 def choose(msg: str, list_: List[Any]) -> Any:
