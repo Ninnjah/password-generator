@@ -26,6 +26,10 @@ def config_words_pass() -> None:
     for password in passwords:
         print(password)
 
+    if cli.yes_or_not("Do you want to save passwords in file?"):
+        with open("passwords.txt", "a+", encoding="utf-8") as f:
+            f.writelines([x+"\n" for x in passwords])
+
 
 def config_pass() -> None:
     raw_alphabet: str = string.ascii_lowercase
@@ -49,6 +53,10 @@ def config_pass() -> None:
     print("Your password is")
     for password in passwords:
         print(password)
+
+    if cli.yes_or_not("\nDo you want to save passwords in file?"):
+        with open("passwords.txt", "a+", encoding="utf-8") as f:
+            f.writelines((x+"\n" for x in passwords))
 
 
 if __name__ == "__main__":
