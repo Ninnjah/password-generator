@@ -35,8 +35,11 @@ def save_to_file(filename: str, data: Union[List[str], Generator]) -> None:
 
     :return None:
     """
+    # Delete forbidden symbols from filename
     find_str = re.escape("\"?*|\\/:><")
     filename = re.sub(f"[{find_str}]", "", filename)
+
+    # Write data to filename
     with open(filename, "a+", encoding="utf-8") as f:
         f.writelines([x+"\n" for x in data])
 
