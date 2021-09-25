@@ -18,10 +18,13 @@ def config_words_pass() -> None:
     with open(file_name, "r", encoding="utf-8") as f:
         word_list: tuple = tuple(_.strip() for _ in f.readlines())
 
+    separation_symbol: str = input("Enter separation symbol: ")
     pass_length: int = cli.get_number("Enter words count in password: ")
     passwords_count: int = cli.get_number("Enter count of passwords: ")
 
-    passwords: List[str] = [generate_password(pass_length, word_list, separator="-") for _ in range(passwords_count)]
+    passwords: List[str] = [
+        generate_password(pass_length, word_list, separator=separation_symbol) for _ in range(passwords_count)
+    ]
     print("Your password is")
     for password in passwords:
         print(password)
