@@ -19,9 +19,11 @@ def config_words_pass() -> None:
         word_list: tuple = tuple(_.strip() for _ in f.readlines())
 
     pass_length = cli.get_number("Enter words count in password: ")
+    passwords_count: int = cli.get_number("Enter count of passwords: ")
 
     print("Your password is")
-    print(generate_password(pass_length, word_list, separator="-"))
+    for _ in range(passwords_count):
+        print(generate_password(pass_length, word_list, separator="-"))
 
 
 def config_pass() -> None:
@@ -40,9 +42,11 @@ def config_pass() -> None:
         raw_alphabet += symbols
 
     alphabet: tuple = tuple(set(raw_alphabet))
+    passwords_count: int = cli.get_number("Enter count of passwords: ")
 
     print("Your password is")
-    print(generate_password(pass_length, alphabet))
+    for _ in range(passwords_count):
+        print(generate_password(pass_length, alphabet))
 
 
 if __name__ == "__main__":
