@@ -1,7 +1,7 @@
 import os
 import string
 import secrets
-from typing import List
+from typing import Generator, List, Union
 
 from utils import cli
 from utils import ascii_text
@@ -9,6 +9,11 @@ from utils import ascii_text
 
 def generate_password(length: int, alphabet: tuple, separator: str = "") -> str:
     return separator.join(secrets.choice(alphabet) for _ in range(length))
+
+
+def save_to_file(filename: str, data: Union[List[str], Generator]) -> None:
+    with open(filename, "a+", encoding="utf-8") as f:
+        f.writelines([x+"\n" for x in data])
 
 
 def config_words_pass() -> None:
@@ -31,8 +36,11 @@ def config_words_pass() -> None:
         print(password)
 
     if cli.yes_or_not("Do you want to save passwords in file?"):
-        with open("passwords.txt", "a+", encoding="utf-8") as f:
-            f.writelines([x+"\n" for x in passwords])
+        file: str = input("Enter file name (default - \"passwords\")")
+        if file == "":
+            file = "passwords"
+
+        save_to_file(file+".txt", passwords)
 
 
 def config_pass() -> None:
@@ -58,9 +66,12 @@ def config_pass() -> None:
     for password in passwords:
         print(password)
 
-    if cli.yes_or_not("\nDo you want to save passwords in file?"):
-        with open("passwords.txt", "a+", encoding="utf-8") as f:
-            f.writelines((x+"\n" for x in passwords))
+    if cli.yes_or_not("Do you want to save passwords in file?"):
+        file: str = input("Enter file name (default - \"passwords\")")
+        if file == "":
+            file = "passwords"
+
+        save_to_file(file+".txt", passwords)
 
 
 if __name__ == "__main__":
