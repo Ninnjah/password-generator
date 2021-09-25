@@ -36,7 +36,7 @@ def config_words_pass() -> None:
         print(password)
 
     if cli.yes_or_not("Do you want to save passwords in file?"):
-        file: str = input("Enter file name (default - \"passwords\")")
+        file: str = input("Enter file name (default-\"passwords\"): ")
         if file == "":
             file = "passwords"
 
