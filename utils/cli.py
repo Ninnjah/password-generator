@@ -3,6 +3,14 @@ from typing import Any, List
 
 
 def get_number(msg: str, min_: int = 0, max_: int = sys.maxsize) -> int:
+    """Get number from user input
+
+    :param msg: str - message for user
+    :param min_: int = 0 - minimum value
+    :param max_: int = sys.maxsize - maximum value
+
+    :return int:
+    """
     while True:
         try:
             number: int = int(input(msg))
@@ -16,6 +24,13 @@ def get_number(msg: str, min_: int = 0, max_: int = sys.maxsize) -> int:
 
 
 def choose(msg: str, list_: List[Any]) -> Any:
+    """Get users select from the list
+
+    :param msg: str - message for user
+    :param list_: List[Any] - list for select
+
+    :return Any:
+    """
     for index, item in enumerate(list_, 1):
         print(f" [{index}] {item}")
 
@@ -28,6 +43,12 @@ def choose(msg: str, list_: List[Any]) -> Any:
 
 
 def yes_or_not(msg: str) -> bool:
+    """Get yes or not answer from user
+
+    :param msg: str - message for user
+
+    :return bool:
+    """
     print(msg)
     while True:
         answer: str = input("Enter y/n: ")

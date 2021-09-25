@@ -8,6 +8,17 @@ from utils import ascii_text
 
 
 def generate_password(length: int, alphabet: tuple, separator: str = "", mode: str = "standard") -> str:
+    """Generates password
+
+    :param length: int - length of password in symbols or words
+    :param alphabet: tuple - tuple of symbols or words
+    :param separator: str = "" - symbol between symbols or words
+    :param mode: str = "standard":
+        "standard" - standard generating password
+        "nu_duplicate" - generating password without duplicate symbols or words
+
+    :return str:
+    """
     if mode == "standard":
         return separator.join(secrets.choice(alphabet) for _ in range(length))
     if mode == "no_duplicate":
@@ -16,19 +27,31 @@ def generate_password(length: int, alphabet: tuple, separator: str = "", mode: s
 
 
 def save_to_file(filename: str, data: Union[List[str], Generator]) -> None:
+    """Saves data to file
+    :param filename: str - absolute or relative path to file
+    :param data: Union[List[str], Generator] - list or generator of data
+
+    :return None:
+    """
     with open(filename, "a+", encoding="utf-8") as f:
         f.writelines([x+"\n" for x in data])
 
 
 def config_words_pass() -> None:
+    """Configures setting to generate password from words"""
+    # Path to dictionaries dir
     file_path: str = "./dictionaries"
+    # Files from file_path
     file_list: List[str] = [x for x in os.listdir(file_path) if os.path.isfile(os.path.join(file_path, x))]
+    # Default mode
     mode: str = "standard"
 
+    # Read words from dictionary
     file_name: str = os.path.join(file_path, cli.choose("Choose dict file: ", file_list))
     with open(file_name, "r", encoding="utf-8") as f:
         word_list: tuple = tuple(_.strip() for _ in f.readlines())
 
+    # Config password generator
     pass_length: int = cli.get_number("Enter words count in password: ")
 
     sep_symbol: str = input("Enter separation symbol: ")
@@ -38,6 +61,7 @@ def config_words_pass() -> None:
 
     passwords_count: int = cli.get_number("Enter count of passwords: ")
 
+    # Password generation
     passwords: List[str] = [
         generate_password(pass_length, word_list, separator=sep_symbol, mode=mode) for _ in range(passwords_count)
     ]
@@ -51,9 +75,13 @@ def config_words_pass() -> None:
 
 
 def config_pass() -> None:
+    """Configures setting to generate password from symbols"""
+    # Default alphabet
     raw_alphabet: str = string.ascii_lowercase
+    # Default mode
     mode: str = "standard"
 
+    # Config password generation
     pass_length: int = cli.get_number("Enter password length: ")
 
     if cli.yes_or_not("Will the password contain capital letters?"):
@@ -69,9 +97,11 @@ def config_pass() -> None:
     if cli.yes_or_not("Will the password contain duplicate symbols?"):
         mode = "no_duplicate"
 
-    alphabet: tuple = tuple(set(raw_alphabet))
     passwords_count: int = cli.get_number("Enter count of passwords: ")
+    # Delete duplicate symbols
+    alphabet: tuple = tuple(set(raw_alphabet))
 
+    # Password generation
     passwords: List[str] = [
         generate_password(pass_length, alphabet, separator="", mode=mode) for _ in range(passwords_count)
     ]
