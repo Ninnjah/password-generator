@@ -28,6 +28,7 @@ def generate_password(length: int, alphabet: tuple, separator: str = "", mode: s
 
 def save_to_file(filename: str, data: Union[List[str], Generator]) -> None:
     """Saves data to file
+
     :param filename: str - absolute or relative path to file
     :param data: Union[List[str], Generator] - list or generator of data
 
@@ -98,6 +99,7 @@ def config_pass() -> None:
         mode = "no_duplicate"
 
     passwords_count: int = cli.get_number("Enter count of passwords: ")
+
     # Delete duplicate symbols
     alphabet: tuple = tuple(set(raw_alphabet))
 
