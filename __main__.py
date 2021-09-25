@@ -4,6 +4,7 @@ import secrets
 from typing import List
 
 from utils import cli
+from utils import ascii_text
 
 
 def generate_password(length: int, alphabet: tuple, separator: str = "") -> str:
@@ -63,6 +64,7 @@ def config_pass() -> None:
 
 
 if __name__ == "__main__":
+    print(ascii_text.greet)
     if cli.choose("Choose password type: ",
                   ["Default password", "Password from words"]) == "Default password":
         config_pass()
