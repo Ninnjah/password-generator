@@ -51,7 +51,7 @@ def yes_or_not(msg: str) -> bool:
     print(msg)
     while True:
         answer: str = input("Enter y/n: ")
-        if answer.lower() in "yn":
+        if answer.lower() in ("y", "n"):
             return answer.lower() == "y"
         else:
             print("You should enter y/n")
