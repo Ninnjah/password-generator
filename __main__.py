@@ -1,11 +1,11 @@
-import os
-import re
+from pathlib import Path
 import string
 import secrets
-from typing import Generator, List, Union
+from typing import List
 
 from utils import cli
 from utils import ascii_text
+from utils.file_io import save_to_file
 
 
 def generate_password(length: int, alphabet: tuple, separator: str = "", mode: str = "standard") -> str:
@@ -27,35 +27,18 @@ def generate_password(length: int, alphabet: tuple, separator: str = "", mode: s
         return separator.join(alphabet.pop(secrets.randbelow(len(alphabet))) for _ in range(length))
 
 
-def save_to_file(filename: str, data: Union[List[str], Generator]) -> None:
-    """Saves data to file
-
-    :param filename: str - absolute or relative path to file
-    :param data: Union[List[str], Generator] - list or generator of data
-
-    :return None:
-    """
-    # Delete forbidden symbols from filename
-    find_str = re.escape("\"?*|\\/:><")
-    filename = re.sub(f"[{find_str}]", "", filename)
-
-    # Write data to filename
-    with open(filename, "a+", encoding="utf-8") as f:
-        f.writelines([x+"\n" for x in data])
-
-
 def config_words_pass() -> None:
     """Configures setting to generate password from words"""
     # Path to dictionaries dir
-    file_path: str = "./dictionaries"
+    dictionary_path: Path = Path("dictionaries")
     # Files from file_path
-    file_list: List[str] = [x for x in os.listdir(file_path) if os.path.isfile(os.path.join(file_path, x))]
+    dictionary_list: List[Path] = [x for x in dictionary_path.iterdir() if x.is_file()]
     # Default mode
     mode: str = "standard"
 
     # Read words from dictionary
-    file_name: str = os.path.join(file_path, cli.choose("Choose dict file: ", file_list))
-    with open(file_name, "r", encoding="utf-8") as f:
+    file_path: Path = cli.choose_file("Choose dict file: ", dictionary_list)
+    with open(file_path, "r", encoding="utf-8") as f:
         word_list: tuple = tuple(_.strip() for _ in f.readlines())
 
     # Config password generator
@@ -75,8 +58,7 @@ def config_words_pass() -> None:
     print("Your password is:\n" + "\n".join(f"{num}: {x}" for num, x in enumerate(passwords, start=1)))
 
     if cli.yes_or_not("Do you want to save passwords in file?"):
-        file: str = input("Enter file name (default-\"passwords\"): ") or "password"
-        save_to_file(file+".txt", passwords)
+        save_to_file(passwords)
 
 
 def config_pass() -> None:
@@ -114,8 +96,7 @@ def config_pass() -> None:
     print("Your password is:\n" + "\n".join(f"{num}: {x}" for num, x in enumerate(passwords, start=1)))
 
     if cli.yes_or_not("Do you want to save passwords in file?"):
-        file: str = input("Enter file name (default-\"passwords\"): ") or "password"
-        save_to_file(file+".txt", passwords)
+        save_to_file(passwords)
 
 
 if __name__ == "__main__":

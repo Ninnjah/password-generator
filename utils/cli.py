@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 from typing import Any, List
 
 
@@ -32,6 +33,25 @@ def choose(msg: str, list_: List[Any]) -> Any:
     """
     for index, item in enumerate(list_, 1):
         print(f" [{index}] {item}")
+
+    while True:
+        index: int = get_number(msg, min_=1, max_=len(list_))
+        if index <= len(list_):
+            return list_[index - 1]
+        else:
+            print("The item with this number doesn't exist")
+
+
+def choose_file(msg: str, list_: List[Path]) -> Path:
+    """Get users select from the list
+
+    :param msg: str - message for user
+    :param list_: List[Any] - list for select
+
+    :return Path:
+    """
+    for index, item in enumerate(list_, 1):
+        print(f" [{index}] {item.name}")
 
     while True:
         index: int = get_number(msg, min_=1, max_=len(list_))
