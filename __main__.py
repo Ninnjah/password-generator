@@ -22,7 +22,7 @@ def generate_password(length: int, alphabet: tuple, separator: str = "", mode: s
     """
     if mode == "standard":
         return separator.join(secrets.choice(alphabet) for _ in range(length))
-    if mode == "no_duplicate":
+    elif mode == "no_duplicate":
         alphabet: list = list(alphabet)
         return separator.join(alphabet.pop(secrets.randbelow(len(alphabet))) for _ in range(length))
 
@@ -101,7 +101,7 @@ def config_pass() -> None:
         symbols: str = input("Enter special symbols: ")
         raw_alphabet += symbols
 
-    if cli.yes_or_not("Will the password contain duplicate symbols?"):
+    if not cli.yes_or_not("Will the password contain duplicate symbols?"):
         mode = "no_duplicate"
 
     passwords_count: int = cli.get_number("Enter count of passwords: ")
