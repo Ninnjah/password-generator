@@ -72,9 +72,7 @@ def config_words_pass() -> None:
     passwords: List[str] = [
         generate_password(pass_length, word_list, separator=sep_symbol, mode=mode) for _ in range(passwords_count)
     ]
-    print("Your password is")
-    for password in passwords:
-        print(password)
+    print("Your password is:\n" + "\n".join(f"{num}: {x}" for num, x in enumerate(passwords, start=1)))
 
     if cli.yes_or_not("Do you want to save passwords in file?"):
         file: str = input("Enter file name (default-\"passwords\"): ") or "password"
